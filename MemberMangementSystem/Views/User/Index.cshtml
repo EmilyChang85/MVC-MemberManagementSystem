@@ -1,0 +1,49 @@
+﻿@model List<MemberMangementSystem.Models.User>
+@{
+    ViewBag.Title = "Index";
+}
+<div>
+
+    <h2>MemberMangementSystem</h2>
+    <div class="row">
+        <table border="1" width="400" class="col-lg-6">
+            <tr>
+                <td>Name </td>
+                <td>Age </td>
+                <td>Address </td>
+                <td>Tel </td>
+                <td>edit</td>
+                <td>delete</td>
+            </tr>
+            @foreach (var User in Model)
+            {
+                <tr>
+                    <td>@User.Name</td>
+                    <td>@User.Age</td>
+                    <td>@User.Address</td>
+                    <td>@User.Tel</td>
+                    <td><input type="button" onclick="editUser(@User.Id)" value="edit" /></td>
+                    <td>@Html.ActionLink("delete", "deleteUser", new { id = User.Id })</td>
+                </tr>
+            }
+
+        </table>
+        <div id="edit" class="col-lg-6">
+            <!--Partial view(edit)-->
+        </div>
+    </div>
+
+    <h6 class="row">@Html.ActionLink("Create Member", "createUser")</h6>
+    <script>
+    function editUser(Id){
+        var url = '@Url.Action("editUser", "User")';
+        $('#edit').load(url, { Id: Id});
+        }
+    </script>
+</div>
+
+@section Scripts{
+    @Styles.Render("~/bundles/jqueryval");
+    @Styles.Render("~/bundles/jquery");
+}
+
